@@ -14,10 +14,10 @@ public class LocalBalanceManagerImpl implements LocalBalanceManager {
 
     @Override
     public BigDecimal incrementBalance(BigDecimal value) {
-        LocalBalance localBalance = this.localBalance.get();
-        localBalance.deposit(value);
+        LocalBalance balance = this.localBalance.get();
+        balance.deposit(value);
 
-        return localBalance.getAmount();
+        return balance.getAmount();
     }
 
     @Override
@@ -28,16 +28,16 @@ public class LocalBalanceManagerImpl implements LocalBalanceManager {
     }
 
     private BigDecimal getBalanceAndReset(LocalBalance balance) {
-        BigDecimal value = balance.getAmount();
+        BigDecimal amount = balance.getAmount();
         balance.reset();
 
-        return value;
+        return amount;
     }
 
     private LocalBalance newInstance() {
-        LocalBalance localBalance = new LocalBalance();
-        localBalances.add(localBalance);
+        LocalBalance balance = new LocalBalance();
+        localBalances.add(balance);
 
-        return localBalance;
+        return balance;
     }
 }

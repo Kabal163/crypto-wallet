@@ -1,7 +1,6 @@
 package com.github.kabal163.wallet;
 
 import com.github.kabal163.balance.BalanceFlushingService;
-import com.github.kabal163.balance.LocalBalance;
 import com.github.kabal163.balance.LocalBalanceManager;
 import com.github.kabal163.transfer.ImmutableTransfer;
 import com.github.kabal163.transfer.Transfer;

@@ -14,7 +14,7 @@ public interface WalletCommandService {
      *
      * @param command contains information about depositing transfer Must not be {@code null}
      * @return immutable copy of newly created transfer
-     * @throws IllegalArgumentException if {@code command} is {@code null}
+     * @throws IllegalArgumentException if {@code command} argument is {@code null}
      */
     ImmutableTransfer deposit(DepositCommand command);
 }

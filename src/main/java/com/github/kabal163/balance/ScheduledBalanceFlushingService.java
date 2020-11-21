@@ -53,8 +53,8 @@ public class ScheduledBalanceFlushingService implements BalanceFlushingService {
             try {
                 condition.await();
             } catch (InterruptedException ex) {
-                log.error("Error while waiting a lock of balance flushing!", ex);
-                throw new BalanceFlushTimeoutException("Error while waiting a lock of balance flushing!", ex);
+                log.error("Error while waiting the balance flushing!", ex);
+                throw new FlushWaitingException("Error while waiting the balance flushing!", ex);
             }
         }
     }
