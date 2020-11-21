@@ -23,11 +23,11 @@ public class WalletCommandServiceImpl implements WalletCommandService {
     private final TransferRepository transferRepository;
     private final BalanceContextProvider balanceContextProvider;
 
-    private ThreadLocal<BalanceContext> concurrentBalance;
+    private ThreadLocal<BalanceContext> localBalance;
 
     @PostConstruct
     public void init() {
-        concurrentBalance = ThreadLocal.withInitial(balanceContextProvider::newInstance);
+        localBalance = ThreadLocal.withInitial(balanceContextProvider::newInstance);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class WalletCommandServiceImpl implements WalletCommandService {
         log.info("Transfer has been created; amount: {}, id: {}", result.getAmount(), result.getId());
 
         balanceFlushingService.waitIfFlushIsRunning();
-        BalanceContext threadBalance = concurrentBalance.get();
+        BalanceContext threadBalance = localBalance.get();
         threadBalance.deposit(result.getAmount());
 
         return ImmutableTransfer.newInstance(result);

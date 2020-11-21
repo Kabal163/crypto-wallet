@@ -23,7 +23,6 @@
         </insert>
         <insert tableName="revinfo">
             <column name="rev" valueComputed="currval('hibernate_sequence')"/>
-            <column name="revtype" value="1"/>
             <column name="revtstmp" valueComputed="extract(epoch from current_timestamp)"/>
         </insert>
     </changeSet>

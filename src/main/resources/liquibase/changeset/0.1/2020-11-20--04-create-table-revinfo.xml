@@ -14,7 +14,6 @@
             <column name="rev" type="integer" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="revinfo_pkey"/>
             </column>
-            <column name="revtype" type="tinyint"/>
             <column name="revtstmp" type="bigint">
                 <constraints nullable="false"/>
             </column>

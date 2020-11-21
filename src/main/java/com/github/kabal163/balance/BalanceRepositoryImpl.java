@@ -19,10 +19,11 @@ public class BalanceRepositoryImpl implements BalanceRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
-    public List<BalanceSnapshot> getAggregatedHistory(LocalDateTime start, LocalDateTime end) {
+    public List<BalanceSnapshot> getAggregatedHistory(BalanceHistorySearchParams params) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
-        parameters.addValue("start", start);
-        parameters.addValue("end", end);
+        parameters.addValue("start", params.getStart());
+        parameters.addValue("end", params.getEnd());
+        parameters.addValue("aggregateBy", params.getAggregateBy().getValue());
 
         return jdbcTemplate.query(
                 AGGREGATED_HISTORY,
@@ -47,10 +48,10 @@ public class BalanceRepositoryImpl implements BalanceRepository {
             "SELECT datetime,\n" +
             "       MAX(balance) amount\n" +
             "  FROM (\n" +
-            "           SELECT date_trunc('minute', last_modified_timestamp) as datetime,\n" +
+            "           SELECT date_trunc(:aggregateBy, last_modified_timestamp) as datetime,\n" +
             "                  balance\n" +
             "           FROM wallet_snapshot\n" +
-            "           WHERE date_trunc('minute', last_modified_timestamp) BETWEEN :start AND :end\n" +
+            "           WHERE date_trunc(:aggregateBy, last_modified_timestamp) BETWEEN :start AND :end\n" +
             "       ) trunc\n" +
             "GROUP BY datetime\n" +
             "ORDER BY datetime";

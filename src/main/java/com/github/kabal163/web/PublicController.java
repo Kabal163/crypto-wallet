@@ -1,11 +1,11 @@
 package com.github.kabal163.web;
 
+import com.github.kabal163.balance.BalanceHistorySearchParams;
+import com.github.kabal163.balance.BalanceQueryService;
 import com.github.kabal163.balance.BalanceSnapshot;
 import com.github.kabal163.transfer.ImmutableTransfer;
-import com.github.kabal163.wallet.ImmutableWallet;
-import com.github.kabal163.wallet.WalletCommandService;
-import com.github.kabal163.balance.BalanceQueryService;
 import com.github.kabal163.wallet.DepositCommand;
+import com.github.kabal163.wallet.WalletCommandService;
 import com.github.kabal163.web.dto.BalanceHistoryRequest;
 import com.github.kabal163.web.dto.DepositRequest;
 import com.github.kabal163.web.dto.DepositResponse;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.github.kabal163.web.PublicController.ROOT_PATH;
@@ -49,6 +49,10 @@ public class PublicController {
 
     @GetMapping("/history")
     public List<BalanceSnapshot> getWalletHistory(@RequestBody @Valid BalanceHistoryRequest request) {
-        return balanceQueryService.getBalanceHistory(request.getStart(), request.getEnd());
+        return balanceQueryService.getBalanceHistory(
+                BalanceHistorySearchParams.builder()
+                        .start(request.getStart())
+                        .end(request.getEnd() == null ? LocalDateTime.now() : request.getEnd())
+                        .build());
     }
 }
