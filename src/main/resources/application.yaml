@@ -12,6 +12,11 @@ spring:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      org:
+        hibernate:
+          envers:
+            audit_table_suffix: _snapshot
   datasource:
     url: jdbc:h2:mem:mydb
     username: sa
@@ -33,6 +38,11 @@ spring:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     properties:
+      org:
+        hibernate:
+          envers:
+            audit_table_suffix: _snapshot
+            default_schema: ${DB_SCHEMA:public}
       hibernate:
         default_schema: ${DB_SCHEMA:public}
         temp:
