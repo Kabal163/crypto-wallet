@@ -1,0 +1,30 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="kanaevdm" id="2020-11-20--06">
+        <preConditions>
+            <sqlCheck expectedResult="0">SELECT COUNT(1) FROM wallet WHERE id = 'b1116a97-1e7c-484b-a111-89cc718c7772'</sqlCheck>
+        </preConditions>
+        <insert tableName="wallet">
+            <column name="id" value="b1116a97-1e7c-484b-a111-89cc718c7772"/>
+            <column name="creation_timestamp" value="now()"/>
+            <column name="last_modified_timestamp" value="now()"/>
+            <column name="balance" value="1000"/>
+        </insert>
+        <insert tableName="wallet_snapshot">
+            <column name="rev" valueComputed="nextval('hibernate_sequence')"/>
+            <column name="revtype" value="1"/>
+            <column name="id" value="b1116a97-1e7c-484b-a111-89cc718c7772"/>
+            <column name="creation_timestamp" value="now()"/>
+            <column name="last_modified_timestamp" value="now()"/>
+            <column name="balance" value="1000"/>
+        </insert>
+        <insert tableName="revinfo">
+            <column name="rev" valueComputed="currval('hibernate_sequence')"/>
+            <column name="revtype" value="1"/>
+            <column name="revtstmp" valueComputed="extract(epoch from current_timestamp)"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

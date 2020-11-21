@@ -1,0 +1,51 @@
+server:
+  servlet:
+    context-path: /api/v1
+  port: 8080
+
+management:
+  server:
+    port: 9090
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.H2Dialect
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  liquibase:
+    changelog: classpath:liquibase/db.changelog-master.xml
+    enabled: true
+  h2:
+    console:
+      enabled: true
+
+---
+spring:
+  profiles:
+    - postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        default_schema: ${DB_SCHEMA:public}
+        temp:
+          use_jdbc_metadata_defaults: false
+  datasource:
+    platform: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432}/${DB_NAME:postgres}?currentSchema=${DB_SCHEMA:public}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driverClassName: org.postgresql.Driver
+
+logging:
+  level:
+    root: ${ROOT_LOG_LEVEL:ERROR}
+    org.springframework: ${SPRING_LOG_LEVEL:ERROR}
+    com.github.kabal163: ${APP_LOG_LEVEL:INFO}

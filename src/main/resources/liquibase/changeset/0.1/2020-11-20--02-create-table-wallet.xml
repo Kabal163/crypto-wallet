@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="kanaevdm" id="2020-11-20--02">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="wallet"/>
+            </not>
+        </preConditions>
+        <createTable remarks="Table stores information about wallet"
+                     tableName="wallet">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" primaryKeyName="wallet_pkey"/>
+            </column>
+            <column name="creation_timestamp" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_timestamp" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addDefaultValue tableName="wallet" columnName="balance" defaultValueNumeric="0"/>
+    </changeSet>
+</databaseChangeLog>
