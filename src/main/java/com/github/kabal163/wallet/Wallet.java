@@ -1,4 +1,4 @@
-package com.github.kabal163.entity;
+package com.github.kabal163.wallet;
 
 import lombok.Data;
 import org.hibernate.envers.Audited;

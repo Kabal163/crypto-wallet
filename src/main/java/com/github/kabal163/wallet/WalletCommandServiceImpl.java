@@ -1,11 +1,11 @@
-package com.github.kabal163.service;
+package com.github.kabal163.wallet;
 
 import com.github.kabal163.balance.BalanceContext;
 import com.github.kabal163.balance.BalanceContextProvider;
-import com.github.kabal163.entity.Transfer;
-import com.github.kabal163.entity.immutable.ImmutableTransfer;
-import com.github.kabal163.persistance.TransferRepository;
-import com.github.kabal163.service.command.DepositCommand;
+import com.github.kabal163.balance.BalanceFlushingService;
+import com.github.kabal163.transfer.Transfer;
+import com.github.kabal163.transfer.ImmutableTransfer;
+import com.github.kabal163.transfer.TransferRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

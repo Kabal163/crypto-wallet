@@ -1,6 +1,6 @@
 package com.github.kabal163.web.dto;
 
-import com.github.kabal163.entity.immutable.ImmutableTransfer;
+import com.github.kabal163.transfer.ImmutableTransfer;
 import lombok.Data;
 import org.springframework.util.Assert;
 

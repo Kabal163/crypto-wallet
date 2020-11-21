@@ -1,14 +1,11 @@
-package com.github.kabal163.service;
+package com.github.kabal163.balance;
 
-import com.github.kabal163.balance.BalanceContextProvider;
-import com.github.kabal163.entity.Wallet;
-import com.github.kabal163.exception.DepositWaitTimeoutException;
-import com.github.kabal163.persistance.WalletRepository;
+import com.github.kabal163.wallet.Wallet;
+import com.github.kabal163.wallet.WalletRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -57,7 +54,7 @@ public class ScheduledBalanceFlushingService implements BalanceFlushingService {
                 condition.await();
             } catch (InterruptedException ex) {
                 log.error("Error while waiting a lock of balance flushing! Transfer will be rolled backed!", ex);
-                throw new DepositWaitTimeoutException("Error while waiting a lock of balance flushing!", ex);
+                throw new BalanceFlushTimeoutException("Error while waiting a lock of balance flushing!", ex);
             }
         }
     }

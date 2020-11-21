@@ -1,4 +1,4 @@
-package com.github.kabal163.entity.immutable;
+package com.github.kabal163.wallet;
 
 import lombok.Data;
 

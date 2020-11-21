@@ -1,6 +1,5 @@
-package com.github.kabal163.persistance;
+package com.github.kabal163.wallet;
 
-import com.github.kabal163.entity.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

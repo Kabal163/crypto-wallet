@@ -1,4 +1,4 @@
-package com.github.kabal163.entity;
+package com.github.kabal163.transfer;
 
 import lombok.Data;
 

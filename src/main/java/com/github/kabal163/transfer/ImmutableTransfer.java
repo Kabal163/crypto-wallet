@@ -1,6 +1,5 @@
-package com.github.kabal163.entity.immutable;
+package com.github.kabal163.transfer;
 
-import com.github.kabal163.entity.Transfer;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;

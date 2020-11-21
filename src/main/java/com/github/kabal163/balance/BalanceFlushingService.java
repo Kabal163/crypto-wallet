@@ -1,4 +1,4 @@
-package com.github.kabal163.service;
+package com.github.kabal163.balance;
 
 public interface BalanceFlushingService {
 

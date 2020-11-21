@@ -1,7 +1,6 @@
-package com.github.kabal163.service;
+package com.github.kabal163.wallet;
 
-import com.github.kabal163.entity.immutable.ImmutableTransfer;
-import com.github.kabal163.service.command.DepositCommand;
+import com.github.kabal163.transfer.ImmutableTransfer;
 
 public interface WalletCommandService {
 

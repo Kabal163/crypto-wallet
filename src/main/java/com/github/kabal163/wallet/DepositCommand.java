@@ -1,6 +1,6 @@
-package com.github.kabal163.service.command;
+package com.github.kabal163.wallet;
 
-import com.github.kabal163.entity.Transfer;
+import com.github.kabal163.transfer.Transfer;
 import lombok.Data;
 import org.springframework.util.Assert;
 
