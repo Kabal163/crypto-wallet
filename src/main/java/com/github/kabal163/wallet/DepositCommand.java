@@ -7,6 +7,9 @@ import org.springframework.util.Assert;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a command to deposit money to a wallet
+ */
 @Data
 public class DepositCommand {
 

@@ -1,5 +1,6 @@
 package com.github.kabal163.wallet;
 
+import com.github.kabal163.balance.BalanceFlushingService;
 import lombok.Data;
 import org.hibernate.envers.Audited;
 
@@ -23,18 +24,37 @@ import java.util.UUID;
 @Table(name = "wallet")
 public class Wallet {
 
+    /**
+     * Wallet's unique identifier
+     */
     @Id
     @GeneratedValue
     private UUID id;
 
+    /**
+     * Timestamp of the wallet creation
+     */
     @Column(nullable = false, updatable = false)
     private LocalDateTime creationTimestamp;
 
+    /**
+     * Timestamp of the last wallet modification
+     */
     @Column(nullable = false)
     private LocalDateTime lastModifiedTimestamp;
 
+    /**
+     * Current wallet's balance
+     * It may be not up to date between {@link BalanceFlushingService#flush() flush operations}
+     */
     private BigDecimal balance;
 
+    /**
+     * Add the specified {@code value} sum to the current {@link #balance}
+     *
+     * @param value sum which must be added to the current balance
+     * @return result balance
+     */
     public BigDecimal deposit(BigDecimal value) {
         balance = balance.add(value);
         return balance;

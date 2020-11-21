@@ -23,6 +23,10 @@ public class WalletCommandServiceImpl implements WalletCommandService {
     private final TransferRepository transferRepository;
     private final BalanceContextProvider balanceContextProvider;
 
+    /**
+     * Each thread has it's own local balance.
+     * {@link BalanceFlushingService} is responsible for calculation total balance
+     */
     private ThreadLocal<BalanceContext> localBalance;
 
     @PostConstruct

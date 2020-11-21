@@ -2,13 +2,17 @@ package com.github.kabal163.wallet;
 
 import com.github.kabal163.transfer.ImmutableTransfer;
 
+/**
+ * Service provides with operations which can be executed
+ * over a wallet
+ */
 public interface WalletCommandService {
 
     /**
-     * Creates a new transfer from the {@code command} and
-     * returns it's immutable copy
+     * Deposits money to a wallet according the {@code command} and
+     * returns an immutable copy of created transfer
      *
-     * @param command is used as a source for a transfer creation. Must not be {@code null}
+     * @param command contains information about depositing transfer Must not be {@code null}
      * @return immutable copy of newly created transfer
      * @throws IllegalArgumentException if {@code command} is {@code null}
      */
