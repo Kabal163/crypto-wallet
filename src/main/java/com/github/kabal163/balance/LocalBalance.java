@@ -8,16 +8,16 @@ import java.math.BigDecimal;
  * Not thread safe
  */
 @Data
-public class BalanceContext {
+public class LocalBalance {
 
-    private BigDecimal balance = new BigDecimal(0);
+    private BigDecimal amount = new BigDecimal(0);
 
     public BigDecimal deposit(BigDecimal value) {
-        balance = balance.add(value);
-        return balance;
+        this.amount = this.amount.add(value);
+        return this.amount;
     }
 
     public void reset() {
-        balance = new BigDecimal(0);
+        amount = new BigDecimal(0);
     }
 }

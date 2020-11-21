@@ -1,4 +1,4 @@
-package com.github.kabal163.web.dto;
+package com.github.kabal163.web.response;
 
 import com.github.kabal163.transfer.ImmutableTransfer;
 import lombok.Data;

@@ -1,18 +1,16 @@
 package com.github.kabal163.wallet;
 
-import com.github.kabal163.balance.BalanceContext;
-import com.github.kabal163.balance.BalanceContextProvider;
 import com.github.kabal163.balance.BalanceFlushingService;
-import com.github.kabal163.transfer.Transfer;
+import com.github.kabal163.balance.LocalBalance;
+import com.github.kabal163.balance.LocalBalanceManager;
 import com.github.kabal163.transfer.ImmutableTransfer;
+import com.github.kabal163.transfer.Transfer;
 import com.github.kabal163.transfer.TransferRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-
-import javax.annotation.PostConstruct;
 
 @Slf4j
 @Service
@@ -21,32 +19,19 @@ public class WalletCommandServiceImpl implements WalletCommandService {
 
     private final BalanceFlushingService balanceFlushingService;
     private final TransferRepository transferRepository;
-    private final BalanceContextProvider balanceContextProvider;
-
-    /**
-     * Each thread has it's own local balance.
-     * {@link BalanceFlushingService} is responsible for calculation total balance
-     */
-    private ThreadLocal<BalanceContext> localBalance;
-
-    @PostConstruct
-    public void init() {
-        localBalance = ThreadLocal.withInitial(balanceContextProvider::newInstance);
-    }
+    private final LocalBalanceManager localBalanceManager;
 
     @Override
     @Transactional
     public ImmutableTransfer deposit(DepositCommand command) {
         Assert.notNull(command, "DepositCommand must not be null!");
 
-        Transfer transfer = command.getTransfer();
-        Transfer result = transferRepository.save(transfer);
-        log.info("Transfer has been created; amount: {}, id: {}", result.getAmount(), result.getId());
+        Transfer transfer = transferRepository.save(command.getTransfer());
+        log.info("Transfer has been created; amount: {}, id: {}", transfer.getAmount(), transfer.getId());
 
         balanceFlushingService.waitIfFlushIsRunning();
-        BalanceContext threadBalance = localBalance.get();
-        threadBalance.deposit(result.getAmount());
+        localBalanceManager.incrementBalance(transfer.getAmount());
 
-        return ImmutableTransfer.newInstance(result);
+        return ImmutableTransfer.newInstance(transfer);
     }
 }

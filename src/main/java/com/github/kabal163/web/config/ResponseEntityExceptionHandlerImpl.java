@@ -3,7 +3,7 @@ package com.github.kabal163.web.config;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.kabal163.web.dto.WebResponse;
+import com.github.kabal163.web.response.WebResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
@@ -27,7 +27,7 @@ public class ResponseEntityExceptionHandlerImpl extends ResponseEntityExceptionH
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @ExceptionHandler(value = Exception.class)
-    protected ResponseEntity<Object> handleIllegalArgumentException(Exception ex, WebRequest request) {
+    protected ResponseEntity<Object> handleGenericException(Exception ex, WebRequest request) {
         WebResponse<Void> response = WebResponse.failed(
                 ex.getMessage(),
                 ex.getClass().getCanonicalName());

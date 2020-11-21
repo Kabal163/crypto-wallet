@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nullable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,13 +39,14 @@ public class BalanceRepositoryImpl implements BalanceRepository {
                 .build();
     }
 
-    private LocalDateTime toLocalDateTimeOrNull(Timestamp timestamp) {
+    @Nullable
+    private LocalDateTime toLocalDateTimeOrNull(@Nullable Timestamp timestamp) {
         return ofNullable(timestamp)
                 .map(Timestamp::toLocalDateTime)
                 .orElse(null);
     }
 
-    private final static String AGGREGATED_HISTORY = "" +
+    private static final String AGGREGATED_HISTORY = "" +
             "SELECT datetime,\n" +
             "       MAX(balance) amount\n" +
             "  FROM (\n" +

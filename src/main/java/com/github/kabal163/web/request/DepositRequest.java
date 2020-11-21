@@ -1,4 +1,4 @@
-package com.github.kabal163.web.dto;
+package com.github.kabal163.web.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

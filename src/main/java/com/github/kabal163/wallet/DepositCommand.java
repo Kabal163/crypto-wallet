@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * Represents a command to deposit money to a wallet
+ * Contains information about income transfer
  */
 @Data
 public class DepositCommand {

@@ -1,4 +1,4 @@
-package com.github.kabal163.web.dto;
+package com.github.kabal163.web.response;
 
 import lombok.AccessLevel;
 import lombok.Data;

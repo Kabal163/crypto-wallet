@@ -15,16 +15,16 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ScheduledBalanceFlushingService implements BalanceFlushingService {
 
     private final WalletRepository walletRepository;
-    private final BalanceContextProvider balanceContextProvider;
+    private final LocalBalanceManager localBalanceManager;
     private final ReentrantLock lock;
     private final Condition condition;
 
     private volatile boolean flushRunning = false;
 
     public ScheduledBalanceFlushingService(WalletRepository walletRepository,
-                                           BalanceContextProvider balanceContextProvider) {
+                                           LocalBalanceManager localBalanceManager) {
         this.walletRepository = walletRepository;
-        this.balanceContextProvider = balanceContextProvider;
+        this.localBalanceManager = localBalanceManager;
         lock = new ReentrantLock();
         condition = lock.newCondition();
     }
@@ -37,7 +37,7 @@ public class ScheduledBalanceFlushingService implements BalanceFlushingService {
         try {
             log.trace("Flushing wallet's balance...");
             Wallet wallet = walletRepository.findById(UUID.fromString("b1116a97-1e7c-484b-a111-89cc718c7772")).orElseThrow();
-            wallet.deposit(balanceContextProvider.countAndReset());
+            wallet.deposit(localBalanceManager.countAndReset());
             walletRepository.save(wallet);
             log.debug("Wallet's balance has been updated; The current balance: {}", wallet.getBalance());
         } finally {
@@ -53,7 +53,7 @@ public class ScheduledBalanceFlushingService implements BalanceFlushingService {
             try {
                 condition.await();
             } catch (InterruptedException ex) {
-                log.error("Error while waiting a lock of balance flushing! Transfer will be rolled backed!", ex);
+                log.error("Error while waiting a lock of balance flushing!", ex);
                 throw new BalanceFlushTimeoutException("Error while waiting a lock of balance flushing!", ex);
             }
         }
