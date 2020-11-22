@@ -21,14 +21,6 @@ public class LocalBalanceManagerImpl implements LocalBalanceManager {
     private final ThreadLocal<LocalBalance> localBalance = ThreadLocal.withInitial(this::newInstance);
     private final List<LocalBalance> localBalances = new CopyOnWriteArrayList<>();
 
-    /**
-     * Balance must not be incremented while {@link #countAndReset()} is running,
-     * so be sure that you don't invoke it until the {@link #countAndReset()}
-     * is completed
-     *
-     * @param value amount which must be incremented to the current local balance
-     * @return resulted local balance
-     */
     @Override
     public BigDecimal incrementBalance(BigDecimal value) {
         LocalBalance balance = this.localBalance.get();
