@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 import javax.annotation.Nullable;
 import java.sql.Timestamp;
@@ -21,6 +22,8 @@ public class BalanceRepositoryImpl implements BalanceRepository {
 
     @Override
     public List<BalanceSnapshot> getAggregatedHistory(BalanceHistorySearchParams params) {
+        Assert.notNull(params, "BalanceHistorySearchParams must not be null!");
+
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("start", params.getStart());
         parameters.addValue("end", params.getEnd());
