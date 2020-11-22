@@ -5,17 +5,14 @@ import java.math.BigDecimal;
 /**
  * Provides convenient methods to work with {@link LocalBalance local balance}.
  * Manages local balance's lifecycle.
- * Should be thread safe
  */
 public interface LocalBalanceManager {
 
     /**
      * Increments thread's {@link LocalBalance local balance} and
      * returns resulted amount.
-     * Balance must not be incremented while {@link #countAndReset()} is running,
-     * so be sure that you don't invoke it until the {@link #countAndReset()}
-     * is completed
      *
+     * @param value amount which must be incremented to the current local balance
      * @return resulted local balance amount
      */
     BigDecimal incrementBalance(BigDecimal value);
