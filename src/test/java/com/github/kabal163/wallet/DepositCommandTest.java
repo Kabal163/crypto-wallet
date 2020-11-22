@@ -1,5 +1,6 @@
 package com.github.kabal163.wallet;
 
+import com.github.kabal163.transfer.Transfer;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -58,11 +59,48 @@ class DepositCommandTest {
 
     @Test
     void whenCallBuild_thenReturnDepositCommandWithSpecifiedTransferTimestamp() {
-        LocalDateTime expected = LocalDateTime.now();
+        LocalDateTime expected = LocalDateTime.of(1999, 1, 1, 0, 0, 0);
         LocalDateTime actual = DepositCommand.builder()
                 .amount(new BigDecimal(1))
                 .transferTimestamp(expected)
                 .build()
+                .getTransferTimestamp();
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void whenCallGetTransfer_thenReturnsNotNullTransfer() {
+        Transfer actual = DepositCommand.builder()
+                .amount(new BigDecimal(1))
+                .transferTimestamp(LocalDateTime.now())
+                .build()
+                .getTransfer();
+
+        assertThat(actual).isNotNull();
+    }
+
+    @Test
+    void givenAmount_whenCallGetTransfer_thenReturnsTransferWithSameAmount() {
+        BigDecimal expected = new BigDecimal(111);
+        BigDecimal actual = DepositCommand.builder()
+                .amount(expected)
+                .transferTimestamp(LocalDateTime.now())
+                .build()
+                .getTransfer()
+                .getAmount();
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void givenTransferTimestamp_whenCallGetTransfer_thenReturnsTransferWithSameTransferTimestamp() {
+        LocalDateTime expected = LocalDateTime.of(1999, 1, 1, 0, 0, 0);
+        LocalDateTime actual = DepositCommand.builder()
+                .amount(new BigDecimal(0))
+                .transferTimestamp(expected)
+                .build()
+                .getTransfer()
                 .getTransferTimestamp();
 
         assertThat(actual).isEqualTo(expected);
