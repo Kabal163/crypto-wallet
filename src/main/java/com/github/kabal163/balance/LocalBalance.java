@@ -16,7 +16,7 @@ public class LocalBalance {
 
     public BigDecimal reset() {
         synchronized (lock) {
-            BigDecimal tmp = amount;
+            final BigDecimal tmp = amount;
             amount = new BigDecimal(0);
             return tmp;
         }
