@@ -1,23 +1,24 @@
 package com.github.kabal163.balance;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
 
-/**
- * Not thread safe
- */
-@Data
 public class LocalBalance {
 
+    private final Object lock = new Object();
     private BigDecimal amount = new BigDecimal(0);
 
     public BigDecimal deposit(BigDecimal value) {
-        this.amount = this.amount.add(value);
-        return this.amount;
+        synchronized (lock) {
+            amount = amount.add(value);
+            return amount;
+        }
     }
 
-    public void reset() {
-        amount = new BigDecimal(0);
+    public BigDecimal reset() {
+        synchronized (lock) {
+            BigDecimal tmp = amount;
+            amount = new BigDecimal(0);
+            return tmp;
+        }
     }
 }

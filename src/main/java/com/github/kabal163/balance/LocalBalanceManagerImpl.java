@@ -32,23 +32,14 @@ public class LocalBalanceManagerImpl implements LocalBalanceManager {
     @Override
     public BigDecimal incrementBalance(BigDecimal value) {
         LocalBalance balance = this.localBalance.get();
-        balance.deposit(value);
-
-        return balance.getAmount();
+        return balance.deposit(value);
     }
 
     @Override
     public BigDecimal countAndReset() {
         return localBalances.stream()
-                .map(this::getBalanceAndReset)
+                .map(LocalBalance::reset)
                 .reduce(new BigDecimal(0), BigDecimal::add);
-    }
-
-    private BigDecimal getBalanceAndReset(LocalBalance balance) {
-        BigDecimal amount = balance.getAmount();
-        balance.reset();
-
-        return amount;
     }
 
     private LocalBalance newInstance() {
