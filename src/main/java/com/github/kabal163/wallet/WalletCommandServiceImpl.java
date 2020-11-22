@@ -27,8 +27,6 @@ public class WalletCommandServiceImpl implements WalletCommandService {
 
         Transfer transfer = transferRepository.save(command.getTransfer());
         log.info("Transfer has been created; amount: {}, id: {}", transfer.getAmount(), transfer.getId());
-
-        balanceFlushingService.waitIfFlushIsRunning();
         localBalanceManager.incrementBalance(transfer.getAmount());
 
         return ImmutableTransfer.newInstance(transfer);

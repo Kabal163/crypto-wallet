@@ -19,7 +19,6 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -77,17 +76,6 @@ class WalletCommandServiceImplTest {
 
         Transfer actual = captor.getValue();
         assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    void whenCallDeposit_thenBalanceFlushingService_waitIfFlushIsRunningMethodIsCalledOnce() {
-        Transfer transfer = MotherObject.getTransfer().any().please();
-        when(depositCommandMock.getTransfer())
-                .thenReturn(transfer);
-
-        walletCommandService.deposit(depositCommandMock);
-
-        verify(balanceFlushingServiceMock, times(1)).waitIfFlushIsRunning();
     }
 
     @Test
