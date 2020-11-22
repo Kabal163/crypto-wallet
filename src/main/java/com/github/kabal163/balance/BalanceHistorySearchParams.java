@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
 
+import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 
 import static com.github.kabal163.balance.BalanceHistorySearchParams.AggregateBy.HOUR;
@@ -35,7 +36,7 @@ public class BalanceHistorySearchParams {
             return this;
         }
 
-        public Builder aggregateBy(AggregateBy aggregateBy) {
+        public Builder aggregateBy(@Nullable AggregateBy aggregateBy) {
             this.aggregateBy = aggregateBy;
             return this;
         }
