@@ -12,8 +12,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * which work with {@link #localBalance} variable.
  * The {@link #localBalances} variable stores links on the objects
  * from the {@link #localBalance} in order to count them and reset.
- * It may cause memory leaks due to additional links to ThreadLocal.
- * Need to think how to improve the solution.
+ * <p>NOTE!</p> Probably, it may cause memory leaks due to additional links to ThreadLocal.
+ * Need to research.
  */
 @Component
 public class LocalBalanceManagerImpl implements LocalBalanceManager {
