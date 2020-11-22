@@ -3,7 +3,6 @@ package com.github.kabal163.web.config;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.kabal163.balance.FlushWaitingException;
 import com.github.kabal163.web.response.WebResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -26,15 +25,6 @@ import java.util.stream.Collectors;
 public class ResponseEntityExceptionHandlerImpl extends ResponseEntityExceptionHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-
-    @ExceptionHandler(value = FlushWaitingException.class)
-    protected ResponseEntity<Object> handleFlushWaitingException(Exception ex, WebRequest request) {
-        WebResponse<Void> response = WebResponse.failed(
-                "Impossible to update balance! Please, contact us to report a problem.",
-                ex.getClass().getCanonicalName());
-        log.error("Error while waiting buffered local balance flushing!", ex);
-        return handleExceptionInternal(ex, response, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
-    }
 
     @ExceptionHandler(value = Exception.class)
     protected ResponseEntity<Object> handleGenericException(Exception ex, WebRequest request) {
