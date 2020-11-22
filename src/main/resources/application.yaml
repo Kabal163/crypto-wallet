@@ -8,7 +8,7 @@ management:
     port: 9090
 
 app:
-  walletId: &walletId b1116a97-1e7c-484b-a111-89cc718c7772
+  walletId: &walletId ${WALLET_ID:b1116a97-1e7c-484b-a111-89cc718c7772}
 
 spring:
   jpa:
