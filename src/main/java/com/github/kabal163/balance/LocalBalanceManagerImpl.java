@@ -1,6 +1,7 @@
 package com.github.kabal163.balance;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,6 +24,7 @@ public class LocalBalanceManagerImpl implements LocalBalanceManager {
 
     @Override
     public BigDecimal incrementBalance(BigDecimal value) {
+        Assert.notNull(value, "value must not be null!");
         LocalBalance balance = this.localBalance.get();
         return balance.deposit(value);
     }
