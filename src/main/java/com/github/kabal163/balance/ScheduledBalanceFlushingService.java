@@ -1,5 +1,6 @@
 package com.github.kabal163.balance;
 
+import com.github.kabal163.config.ApplicationProperties;
 import com.github.kabal163.wallet.Wallet;
 import com.github.kabal163.wallet.WalletRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ScheduledBalanceFlushingService implements BalanceFlushingService {
 
+    private final ApplicationProperties properties;
     private final WalletRepository walletRepository;
     private final LocalBalanceManager localBalanceManager;
 
@@ -23,7 +25,7 @@ public class ScheduledBalanceFlushingService implements BalanceFlushingService {
         log.trace("Flushing wallet's balance...");
 
         Wallet wallet = walletRepository
-                .findById(UUID.fromString("b1116a97-1e7c-484b-a111-89cc718c7772"))
+                .findById(properties.getWalletId())
                 .orElseThrow();
         wallet.deposit(localBalanceManager.countAndReset());
         walletRepository.save(wallet);

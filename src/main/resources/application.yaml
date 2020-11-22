@@ -7,6 +7,9 @@ management:
   server:
     port: 9090
 
+app:
+  walletId: &walletId b1116a97-1e7c-484b-a111-89cc718c7772
+
 spring:
   jpa:
     hibernate:
@@ -25,6 +28,8 @@ spring:
   liquibase:
     changelog: classpath:liquibase/db.changelog-master.xml
     enabled: true
+    parameters:
+      walletId: *walletId
   h2:
     console:
       enabled: true
