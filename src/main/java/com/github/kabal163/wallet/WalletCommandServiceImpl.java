@@ -1,6 +1,5 @@
 package com.github.kabal163.wallet;
 
-import com.github.kabal163.balance.BalanceFlushingService;
 import com.github.kabal163.balance.LocalBalanceManager;
 import com.github.kabal163.transfer.ImmutableTransfer;
 import com.github.kabal163.transfer.Transfer;
@@ -16,7 +15,6 @@ import org.springframework.util.Assert;
 @RequiredArgsConstructor
 public class WalletCommandServiceImpl implements WalletCommandService {
 
-    private final BalanceFlushingService balanceFlushingService;
     private final TransferRepository transferRepository;
     private final LocalBalanceManager localBalanceManager;
 

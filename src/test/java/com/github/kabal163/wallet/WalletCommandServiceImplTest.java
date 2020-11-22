@@ -1,7 +1,6 @@
 package com.github.kabal163.wallet;
 
 import com.github.kabal163.MotherObject;
-import com.github.kabal163.balance.BalanceFlushingService;
 import com.github.kabal163.balance.LocalBalanceManager;
 import com.github.kabal163.transfer.ImmutableTransfer;
 import com.github.kabal163.transfer.Transfer;
@@ -26,7 +25,6 @@ import static org.mockito.Mockito.when;
 class WalletCommandServiceImplTest {
 
     //@formatter:off
-    @Mock BalanceFlushingService balanceFlushingServiceMock;
     @Mock TransferRepository transferRepositoryMock;
     @Mock LocalBalanceManager localBalanceManagerMock;
     @Mock DepositCommand depositCommandMock;
@@ -40,7 +38,6 @@ class WalletCommandServiceImplTest {
         defaultMocksBehaviour();
 
         walletCommandService = new WalletCommandServiceImpl(
-                balanceFlushingServiceMock,
                 transferRepositoryMock,
                 localBalanceManagerMock);
     }
