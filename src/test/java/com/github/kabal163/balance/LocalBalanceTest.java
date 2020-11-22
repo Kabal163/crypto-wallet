@@ -97,6 +97,24 @@ class LocalBalanceTest {
         assertThat(actual.intValue()).isEqualTo(expectedAmount);
     }
 
+    @Test
+    void whenCallDepositAndResetMultipleTimes_thenTotalDepositAmountMustBeEqualToTotalResetAmount() {
+        final int depositTimes = 500;
+        final BigDecimal depositAmount = new BigDecimal(100);
+
+        BigDecimal totalDeposit = null;
+        BigDecimal totalReset;
+        for (int i = 0; i < depositTimes; i++) {
+            totalDeposit = localBalance.deposit(depositAmount);
+            if (i % 50 == 0) {
+                totalReset = localBalance.reset();
+            }
+        }
+        totalReset = localBalance.reset(); // reset the rest balance
+
+        assertThat(totalDeposit).isEqualTo(totalReset);
+    }
+
     static Stream<Arguments> getDepositsDataSet() {
         return Stream.of(
                 Arguments.of(new BigDecimal(2), new BigDecimal(2), new BigDecimal(4)),
