@@ -47,4 +47,11 @@ The next environment variables are available in <code>postgres</code> profile:
 
 <code>DB_PASSWORD</code> - database password. Default is <code>postgres</code>
 
+<h3>Run Application</h3>
+
+1. Make sure that you have running Docker daemon on your machine and have internet access
+2. Make sure your user is in <i>docker</i> group 
+3. Make sure mvnw and run.sh are executable <code>sudo chmod +x \<filename\></code>
+4. Run <code>run.sh</code>
+
 
